@@ -213,3 +213,12 @@ def gen_list(file_or_dir, glob=None):
         return [file_or_dir]
 
     log.e(file_or_dir, 'is unsupported')
+
+
+def split_key(line):
+    if '\t' in line:
+        return line.split('\t')
+    else:
+        _array = line.split(' ')
+        key = _array[0]
+        return [key, _array[1:]]
