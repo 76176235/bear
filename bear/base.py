@@ -53,23 +53,37 @@ def read_binary(file_path, data_type='f'):
 #     res_array = np.reshape(_array, [-1])
 
 
-def file_to_list(file_path, read_type='r'):
+def file_to_list(file_path, mode='r', encoding='utf-8'):
     file_list = []
-    with open(file_path, read_type) as f:
+    with open(file_path, mode=mode, encoding=encoding) as f:
         for line in f:
             line = line.strip('\n')
             file_list.append(line)
     return file_list
 
 
-def file2list(file_path, read_type='r'):
-    return file_to_list(file_path, read_type)
-
-
-def file_to_dict(file_path, read_type='r', separator='\t'):
-    file_dict = {}
-    with open(file_path, read_type) as f:
+def file_to_set(file_path, mode='r', encoding='utf-8'):
+    file_set = set()
+    with open(file_path, mode=mode, encoding=encoding) as f:
         for line in f:
+            line = line.strip('\n')
+            if len(line) > 0:
+                file_set.add(line)
+    return file_set
+
+
+def file2set(file_path, mode='r', encoding='utf-8'):
+    return file_to_set(file_path, mode, encoding)
+
+
+def file2list(file_path, mode='r', encoding='utf-8'):
+    return file_to_list(file_path, mode, encoding)
+
+
+def file_to_dict(file_path, mode='r', encoding='utf-8', separator='\t'):
+    file_dict = {}
+    with open(file_path, mode, encoding=encoding) as fh:
+        for line in fh:
             line = line.strip('\n')
             line_array = line.split(separator)
             if len(line_array) == 2:
