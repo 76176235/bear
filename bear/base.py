@@ -221,4 +221,24 @@ def split_key(line):
     else:
         _array = line.split(' ')
         key = _array[0]
-        return [key, _array[1:]]
+        return [key, ' '.join(_array[1:])]
+
+
+def path2utt(fp, postfix='wav'):
+    utt = fp.split('/')[-1].split(f'.{postfix}')[0]
+    return utt
+
+
+def load_vocab(vocab_file):
+    id2vocab = {}
+    with open(vocab_file, "r", encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+            char, idx = line.split()
+            id2vocab[int(idx)] = char
+    vocab = [0] * len(id2vocab)
+    for idx, char in id2vocab.items():
+        vocab[idx] = char
+    return id2vocab, vocab
+
+
